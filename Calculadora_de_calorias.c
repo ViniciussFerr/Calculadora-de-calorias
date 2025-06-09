@@ -51,13 +51,13 @@ void mostrar_cals(user *u){
 	char linha[100], nome[100], peso[100], basal[100], total[100];
 	
 	while(fgets(linha, sizeof(linha), arquivo)){
-		if(sscanf(linha, "%[^;];%[^;];%[^;];%s", nome, peso, basal, total) = 1){
-			if(strcmp(u->nome, nome) = 0)
-				print("Suas informacoes: \n");
-				print("Peso: %s\nBasal: %s\nGasto total: %s\n")
+		if(sscanf(linha, "%[^;];%[^;];%[^;];%s", nome, peso, basal, total) == 4){
+			if(strcmp(u->nome, nome) == 0)
+				printf("Suas informacoes: \n");
+				printf("Peso: %s\nBasal: %s\nGasto total: %s\n");
 		}
 		else{
-			print("Informacoes nao encontradas...\nSaindo...\n");
+			printf("Informacoes nao encontradas...\nSaindo...\n");
 			return;
 		}
 	}
@@ -177,8 +177,7 @@ void calculadora_painel(user *u) {
         }
         else if (escolha == 3)
         {
-            printf("nao implementado...");
-            return;
+            mostrar_cals(u);
         }
         else if (escolha == 4)
         {
