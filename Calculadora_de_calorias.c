@@ -23,6 +23,7 @@ void calcular(user *u);
 void calculadora_painel(user *u);
 void login(user *u);
 void cadastro(user *u);
+void mostrar_cals(user *u);
 
 Node* criar_no(char nome[], int peso, int basal, int gastot) {
     Node* novo = (Node*)malloc(sizeof(Node)); 
@@ -45,10 +46,27 @@ void inserir(Node** inicio, Node* novo) {
     }
 }
 
+void mostrar_cals(user *u){
+	FILE *arquivo = fopen("infos.txt", "r");
+	char linha[100], nome[100], peso[100], basal[100], total[100];
+	
+	while(fgets(linha, sizeof(linha), arquivo)){
+		if(sscanf(linha, "%[^;];%[^;];%[^;];%s", nome, peso, basal, total) = 1){
+			if(strcmp(u->nome, nome) = 0)
+				print("Suas informacoes: \n");
+				print("Peso: %s\nBasal: %s\nGasto total: %s\n")
+		}
+		else{
+			print("Informacoes nao encontradas...\nSaindo...\n");
+			return;
+		}
+	}
+}
+
 void calcular(user *u) {
     FILE *arquivo = fopen("infos.txt", "r");
     if (arquivo == NULL) {
-        printf("Arquivo não encontrado, será criado novo.\n");
+        printf("Arquivo nao encontrado, sera criado um novo.\n");
     }
 
     Node* lista = NULL;
@@ -60,7 +78,7 @@ void calcular(user *u) {
         while (fgets(linha, sizeof(linha), arquivo)) {
             if (sscanf(linha, "%[^;];%d;%d;%d", nome, &peso, &basal, &gastot) == 4) {
                 if (strcmp(u->nome, nome) == 0) {
-                    printf("Informações encontradas: Nome: %s | Peso: %d | Basal: %d | Gasto Total: %d\n", nome, peso, basal, gastot);
+                    printf("Informacoes encontradas: Nome: %s | Peso: %d | Basal: %d | Gasto Total: %d\n", nome, peso, basal, gastot);
                     printf("Deseja sobrescrever os dados? (s/n): ");
                     scanf(" %c", &op);
                     getchar();
@@ -94,8 +112,8 @@ void calcular(user *u) {
     printf("Digite sua idade: ");
     scanf("%d", &idade);
 
-    printf("\nAtividade física:\n");
-    printf("[1] Sedentário\n[2] Levemente ativo\n[3] Moderadamente ativo\n[4] Muito ativo\n[5] Extremamente ativo\n");
+    printf("\nAtividade fisica:\n");
+    printf("[1] Sedentario\n[2] Levemente ativo\n[3] Moderadamente ativo\n[4] Muito ativo\n[5] Extremamente ativo\n");
     do {
         printf("--> ");
         scanf("%d", &escolha);
@@ -311,7 +329,7 @@ int main() {
 
     FILE *arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
-        printf("Arquivo sem conteúdo!");
+        printf("Arquivo sem conteudo!");
         return 1;
     }
 
@@ -321,6 +339,6 @@ int main() {
     }
 
     fclose(arquivo);
-    printf("Até logo!");
+    printf("Ate logo!");
     return 0;
 }
