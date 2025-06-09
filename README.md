@@ -16,11 +16,17 @@ Estrutura do Projeto
 O projeto está organizado da seguinte forma:
 
 calculadora-calorias/
-├── main.c              # Código principal do programa
-├── usuarios.txt        # Arquivo para armazenar dados de login dos usuários
-├── infos.txt           # Arquivo para armazenar informações de cálculos de calorias
-├── README.md           # Documentação do projeto
-└── Makefile            # (Opcional) Para compilar o projeto facilmente
+
+├── main.c 
+# Código principal do programa
+├── usuarios.txt
+# Arquivo para armazenar dados de login dos usuários
+├── infos.txt 
+# Arquivo para armazenar informações de cálculos de calorias
+├── README.md
+# Documentação do projeto
+└── Makefile 
+# (Opcional) Para compilar o projeto facilmente
 
 Como Executar o Projeto
 
