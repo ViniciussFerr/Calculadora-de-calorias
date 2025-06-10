@@ -1,82 +1,169 @@
-Este projeto é uma Calculadora de Calorias desenvolvida em linguagem C. Ele permite que os usuários calculem suas necessidades calóricas diárias com base em informações pessoais, como peso, altura, idade, sexo e nível de atividade física. Além disso, o sistema oferece funcionalidades de login e cadastro para gerenciar os dados dos usuários.
+[https://img.shields.io/badge/Status-Completo-green](https://img.shields.io/badge/Status-Completo-green)  [https://img.shields.io/badge/Linguagem-C-blue](https://img.shields.io/badge/Linguagem-C-blue)
 
-Funcionalidades:
+## Visão Geral
 
-Cadastro e Login: 
-Os usuários podem criar contas e fazer login para acessar suas informações personalizadas.
-Cálculo de Calorias Basais: 
-Calcula a taxa metabólica basal (TMB) com base nas informações fornecidas pelo usuário.
-Cálculo de Gasto Total Diário : 
-Estima o gasto total de calorias diárias considerando o nível de atividade física.
-Armazenamento de Dados : 
-As informações dos usuários são armazenadas em arquivos de texto (usuarios.txt e infos.txt) para persistência.
-Interface Simples : 
-Um menu interativo permite que os usuários naveguem pelas funcionalidades do sistema.
-Estrutura do Projeto
-O projeto está organizado da seguinte forma:
+Este projeto é uma Calculadora de Calorias desenvolvida em linguagem C que permite aos usuários calcular suas necessidades calóricas diárias com base em informações pessoais. O sistema inclui funcionalidades de autenticação e armazenamento persistente de dados.
+
+## Funcionalidades Principais
+
+✅  **Cadastro e Login de Usuários**  
+✅  **Cálculo de Taxa Metabólica Basal (TMB)**  
+✅  **Cálculo de Gasto Calórico Total**  
+✅  **Armazenamento Persistente em Arquivos**  
+✅  **Gerenciamento de Contas**  
+✅  **Visualização de Histórico de Cálculos**
+
+## Estrutura do Projeto
+
+text
+
+Copy
+
+Download
 
 calculadora-calorias/
+├── Calculadora_de_calorias.c   # Código fonte principal
+├── usuarios.txt                # Armazena credenciais dos usuários
+├── infos.txt                   # Armazena dados de cálculos
+└── README.md                   # Documentação do projeto
 
-├── main.c 
-# Código principal do programa
-├── usuarios.txt
-# Arquivo para armazenar dados de login dos usuários
-├── infos.txt 
-# Arquivo para armazenar informações de cálculos de calorias
-├── README.md
-# Documentação do projeto
-└── Makefile 
-# (Opcional) Para compilar o projeto facilmente
+## Como Executar
 
-Como Executar o Projeto
+### Pré-requisitos
 
-Pré-requisitos
-Compilador C : 
-Certifique-se de ter um compilador C instalado (como GCC).
-Sistema Operacional : 
-Compatível com sistemas Linux, macOS e Windows (usando WSL ou MinGW).
-Passos para Execução
-Clone o Repositório :
+-   Compilador C (GCC recomendado)
+    
+-   Sistema operacional compatível (Windows/Linux/macOS)
+    
 
-git clone https://github.com/seu-usuario/calculadora-calorias.git 
-cd calculadora-calorias
+### Compilação e Execução
 
-Compile o Código :
-Use o GCC para compilar o programa:
-gcc main.c -o calculadora-calorias
+bash
 
-Execute o Programa :
-Após a compilação, execute o programa gerado:
-./calculadora-calorias
+Copy
 
-Interaja com o Sistema :
-Siga as instruções no terminal para realizar o cadastro, login e calcular suas necessidades calóricas.
-Exemplo de Uso
+Download
 
-|-------------------------------|
+# Compilar o programa
+gcc -Wall -Wextra -o calculadora Calculadora_de_calorias.c
+
+# Executar o programa
+./calculadora
+
+## Funcionalidades Detalhadas
+
+### 1. Autenticação de Usuários
+
+-   Cadastro com nome de usuário e senha
+    
+-   Login com validação de credenciais
+    
+-   Armazenamento seguro em arquivo texto
+    
+
+### 2. Cálculos Nutricionais
+
+-   **Taxa Metabólica Basal**: Calculada usando a equação de Mifflin-St Jeor
+    
+    -   Homens:  `TMB = (10 × peso) + (6,25 × altura) - (5 × idade) + 5`
+        
+    -   Mulheres:  `TMB = (10 × peso) + (6,25 × altura) - (5 × idade) - 161`
+        
+-   **Gasto Calórico Total**: Considera o nível de atividade física
+    
+    -   Sedentário: TMB × 1.2
+        
+    -   Levemente ativo: TMB × 1.375
+        
+    -   Moderadamente ativo: TMB × 1.55
+        
+    -   Muito ativo: TMB × 1.725
+        
+    -   Extremamente ativo: TMB × 1.9
+        
+
+### 3. Gerenciamento de Dados
+
+-   Armazenamento em arquivos texto
+    
+-   Atualização de informações
+    
+-   Exclusão de contas
+    
+
+## Exemplo de Uso
+
+text
+
+Copy
+
+Download
+
 |----CALCULADORA DE CALORIAS----|
-|-------------------------------|
+
 
 |-( 1 ) CADASTRO -- ( 2 ) LOGIN-|
 |-( 3 ) SAIR-|
 --> 1
 
 |--CADASTRO--|
-|--PARA FECHAR DIGITE 0--|
 |--NOME--|
---> João
+--> Ana
+
+|--SENHA--| 
+--> senha123
+Cadastro concluído!
+
+--> 2
+|--LOGIN--|
+|--NOME--|
+--> Ana
 
 |--SENHA--|
 --> senha123
-Cadastro concluído!
-Funcionalidades Futuras
-Embora o projeto já seja funcional, há espaço para melhorias e novas funcionalidades:
+Login bem sucedido!
 
-Gerenciamento de Dieta : 
-Permitir que os usuários registrem suas refeições diárias e acompanhem o consumo de calorias.
-Relatórios Personalizados : 
-Gerar gráficos ou relatórios com base nos dados armazenados.
-Interface Gráfica : 
-Implementar uma interface gráfica para facilitar a interação com o usuário.
-Validação de Entrada : 
-Melhorar a validação de entradas para evitar erros durante a execução.
+|----CALCULADORA DE CALORIAS----|
+
+1. CALCULAR MACROS
+2. GERENCIAR DIETA (não implementado)
+3. VISUALIZAR HISTÓRICO
+4. GERENCIAR CONTA
+5. SAIR
+--> 1
+
+Digite seu sexo (m/f): f
+Digite seu peso (kg): 60
+Digite sua altura (cm): 165
+Digite sua idade: 25
+
+Nível de atividade:
+[1] Sedentário
+[2] Levemente ativo
+[3] Moderadamente ativo
+[4] Muito ativo
+[5] Extremamente ativo
+--> 3
+
+Sua TMB: 1326 calorias
+Seu gasto total diário: 2055 calorias
+Dados salvos com sucesso!
+
+## Melhorias Futuras
+
+🔹 Implementar cálculo de macros (proteínas, carboidratos, gorduras)  
+🔹 Adicionar sistema de acompanhamento de dieta diária  
+🔹 Melhorar a interface com menus mais intuitivos  
+🔹 Adicionar criptografia para armazenamento de senhas  
+
+## Estrutura do Código
+
+O programa utiliza:
+
+-   Structs para organização de dados
+    
+-   Manipulação de arquivos para persistência
+    
+-   Listas encadeadas para gerenciamento temporário de dados
+    
+-   Validação de entrada do usuário
