@@ -1,4 +1,4 @@
-[https://img.shields.io/badge/Status-Completo-green](https://img.shields.io/badge/Status-Completo-green)  [https://img.shields.io/badge/Linguagem-C-blue](https://img.shields.io/badge/Linguagem-C-blue)
+# Calculadora de Calorias em C
 
 ## Visão Geral
 
