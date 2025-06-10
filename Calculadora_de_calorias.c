@@ -50,11 +50,15 @@ void mostrar_cals(user *u){
 	FILE *arquivo = fopen("infos.txt", "r");
 	char linha[100], nome[100], peso[100], basal[100], total[100];
 	
-	while(fgets(linha, sizeof(linha), arquivo)){
-		if(sscanf(linha, "%[^;];%[^;];%[^;];%s", nome, peso, basal, total) == 4){
+	while(fgets(linha, sizeof(linha), arquivo))
+	{
+		if(sscanf(linha, "%[^;];%[^;];%[^;];%s", nome, peso, basal, total) == 4)
+		{
 			if(strcmp(u->nome, nome) == 0)
+			{
 				printf("Suas informacoes: \n");
-				printf("Peso: %s\nBasal: %s\nGasto total: %s\n");
+				printf("Peso: %s\nBasal: %s\nGasto total: %s\n", peso, basal, total);
+			}
 		}
 		else{
 			printf("Informacoes nao encontradas...\nSaindo...\n");
@@ -147,10 +151,106 @@ void calcular(user *u) {
     printf("Dados salvos com sucesso!\n");
 }
 
-void calculadora_painel(user *u) {
-    int escolha, run = 0;
+void gerenciar_contas(user *u) {
+    FILE *arquivo = fopen("usuarios.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
     
-    while (run != 1)
+    FILE *temp = fopen("temp.txt", "w");
+    if (temp == NULL) {
+        printf("Erro ao criar arquivo temporario.\n");
+        fclose(arquivo);
+        return;
+    }
+    
+    char linha[100], nome[100], senha[100];
+    char opc;
+    int encontrado = 0;
+    
+    printf("[-ESCOLHA-]\n");
+    printf("DELETAR(1) -- ATUALIZAR(2) -- SAIR(3)\n");
+    scanf(" %c", &opc);
+    getchar();
+    
+    if (opc == '3') {
+        fclose(arquivo);
+        fclose(temp);
+        remove("temp.txt");
+        return;
+    }
+    
+    while(fgets(linha, sizeof(linha), arquivo)) {
+        if(sscanf(linha, "%[^;];%s", nome, senha) == 2) {
+            if(strcmp(u->nome, nome) != 0) {
+                fputs(linha, temp);
+            } else {
+                encontrado = 1;
+            }
+        }
+    }
+    
+    fclose(arquivo);
+    
+    if (opc == '1') { 
+        fclose(temp);
+        remove("usuarios.txt");
+        rename("temp.txt", "usuarios.txt");
+        printf("Conta removida com sucesso!\n");
+        return;
+    }
+    else if (opc == '2') { 
+        if (!encontrado) {
+            printf("Usuario nao encontrado!\n");
+            fclose(temp);
+            remove("temp.txt");
+            return;
+        }
+        
+        printf("|--ATUALIZAR CONTA--|\n");
+        printf("Novo nome: ");
+        fgets(u->nome, sizeof(u->nome), stdin); 
+        u->nome[strcspn(u->nome, "\n")] = '\0';
+        
+        printf("Nova senha: ");
+        scanf("%s", u->senha);
+        getchar();
+        
+        arquivo = fopen("temp.txt", "r");
+        if (arquivo) {
+            while(fgets(linha, sizeof(linha), arquivo)) {
+                if(sscanf(linha, "%[^;];%s", nome, senha) == 2) {
+                    if(strcmp(u->nome, nome) == 0) {
+                        printf("Este nome de usuario ja esta em uso!\n");
+                        fclose(arquivo);
+                        fclose(temp);
+                        remove("temp.txt");
+                        return;
+                    }
+                }
+            }
+            fclose(arquivo);
+        }
+        
+        fprintf(temp, "%s;%s\n", u->nome, u->senha);
+        fclose(temp);
+
+        remove("usuarios.txt");
+        rename("temp.txt", "usuarios.txt");
+        printf("Conta atualizada com sucesso!\n");
+    }
+    else {
+        fclose(temp);
+        remove("temp.txt");
+        printf("Opcao invalida!\n");
+    }
+}
+
+void calculadora_painel(user *u) {
+    int escolha;
+    
+    while (1)
     {
         printf("|-------------------------------|\n");
         printf("|----CALCULADORA DE CALORIAS----|\n");
@@ -159,7 +259,7 @@ void calculadora_painel(user *u) {
         printf("ola %s!, o que voce deseja fazer?\n\n", u->nome);
 
         printf("|-( 1 ) CALCULAR MACROS-|\n");
-        printf("|-( 2 ) GERENCIAR DIETA-|\n");
+        printf("|-( 2 ) GERENCIAR DIETA-| nao funcional\n");
         printf("|-( 3 ) PRINTAR LOG DE CALORIAS-|\n");
         printf("|-( 4 ) GERENCIAR CONTA-|\n");
         printf("|-( 5 ) SAIR-|\n-->");
@@ -181,12 +281,11 @@ void calculadora_painel(user *u) {
         }
         else if (escolha == 4)
         {
-            printf("nao implementado...");
-            return;
+            gerenciar_contas(u);
         }
         else if (escolha == 5)
         {
-            run = 1;
+            break;
         }
         else
         {
@@ -287,7 +386,7 @@ void login(user *u){
         }
     }
 
-    printf("Login ou senha incorretos ou cadastro não encontrado.\n");
+    printf("Login ou senha incorretos ou cadastro nao encontrado.\n");
     printf("Deseja fazer um cadastro? (s/n)\n--> ");
     scanf(" %c", &escolha);
     getchar();
